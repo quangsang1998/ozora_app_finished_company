@@ -12,11 +12,11 @@ import javax.inject.Singleton
 class NewsRepositoryImpl @Inject constructor(
   private val apiService: ApiService
 ) {
-  fun getNewsListVertical(apiKey: String): Deferred<Result<VerticalModel>> {
+  fun getNewsListVertical(apiKey: String): Deferred<List<VerticalModel>> {
       return apiService.getList0(apiKey)
   }
 
-  fun getNewsListHorizontal(apiKey: String): Deferred<Result<HorizontalModel>> {
+  fun getNewsListHorizontal(apiKey: String): Deferred<List<HorizontalModel>> {
       return apiService.getList1(apiKey)
   }
 }

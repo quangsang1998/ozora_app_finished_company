@@ -8,7 +8,7 @@ import kotlinx.coroutines.Deferred
 class GetNewsListVerticalUseCase(
   private val newsRepositoryImpl: NewsRepositoryImpl
 ) {
-  operator fun invoke(apiKey: String): Deferred<Result<VerticalModel>> {
+  operator fun invoke(apiKey: String): Deferred<List<VerticalModel>> {
     return newsRepositoryImpl.getNewsListVertical(apiKey)
   }
 }

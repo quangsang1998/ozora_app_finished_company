@@ -12,7 +12,7 @@ import javax.inject.Singleton
 class GetNewsListHorizontalUseCase @Inject constructor(
     private val newsRepositoryImpl: NewsRepositoryImpl
 ) {
-    operator fun invoke(apiKey: String): Deferred<Result<HorizontalModel>> {
+    operator fun invoke(apiKey: String): Deferred<List<HorizontalModel>> {
         return newsRepositoryImpl.getNewsListHorizontal(apiKey)
     }
 }
