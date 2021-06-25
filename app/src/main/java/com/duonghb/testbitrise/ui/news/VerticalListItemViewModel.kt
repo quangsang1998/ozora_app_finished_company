@@ -3,20 +3,20 @@ package com.duonghb.testbitrise.ui.news
 import android.view.View
 import com.duonghb.testbitrise.R
 import com.duonghb.testbitrise.databinding.VerticalItemBinding
-import com.duonghb.testbitrise.domain.model1.VerticalModel
+import com.duonghb.testbitrise.domain.model.ListItemVertical
 import com.xwray.groupie.Item
 import com.xwray.groupie.viewbinding.BindableItem
 
-class VerticalListItemViewModel(
-    val verticalItem: VerticalModel,
+data class VerticalListItemViewModel(
+    val listItemVertical: ListItemVertical?,
     val listener: Listener
 ) {
     interface Listener {
-        fun onItemVerticalClick(verticalItem: VerticalModel)
+        fun onItemVerticalClick(listItemVertical: ListItemVertical?)
     }
 
     fun onItemVerticalClick() {
-        listener.onItemVerticalClick(verticalItem)
+        listener.onItemVerticalClick(listItemVertical)
     }
 }
 
@@ -36,9 +36,9 @@ class VerticalListItem(
     }
 
     override fun isSameAs(other: Item<*>): Boolean =
-        (other as VerticalListItem).viewModel.verticalItem.client_id ==
-            viewModel.verticalItem.client_id
+        (other as VerticalListItem).viewModel.listItemVertical?.id ==
+            viewModel.listItemVertical?.id
 
     override fun hasSameContentAs(other: Item<*>): Boolean =
-        (other as VerticalListItem).viewModel.verticalItem == viewModel.verticalItem
+        (other as VerticalListItem).viewModel.listItemVertical == viewModel.listItemVertical
 }

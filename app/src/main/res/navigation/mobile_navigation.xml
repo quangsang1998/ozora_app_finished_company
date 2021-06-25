@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_content">
+    app:startDestination="@+id/navigation_news">
 
     <fragment
         android:id="@+id/navigation_content"
@@ -15,11 +15,21 @@
         android:id="@+id/navigation_news"
         android:name="com.duonghb.testbitrise.ui.news.NewsFragment"
         android:label="@string/tab_news"
-        tools:layout="@layout/news_fragment" />
+        tools:layout="@layout/news_fragment" >
+        <action
+          android:id="@+id/action_navigation_news_to_navigation_detail"
+          app:destination="@id/navigation_detail" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_account"
         android:name="com.duonghb.testbitrise.ui.account.AccountFragment"
         android:label="@string/account"
         tools:layout="@layout/account_fragment" />
+
+    <fragment
+        android:id="@+id/navigation_detail"
+        android:name="com.duonghb.testbitrise.ui.news.DetailFragment"
+        android:label="@string/tab_event"
+        tools:layout="@layout/detail_fragment" />
 </navigation>

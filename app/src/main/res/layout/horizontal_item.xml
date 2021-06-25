@@ -9,18 +9,52 @@
       type="com.duonghb.testbitrise.ui.news.HorizontalListItemViewModel" />
 
   </data>
-  <androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+  <FrameLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/margin_start_end_top_bottom"
+    android:layout_marginEnd="@dimen/margin_start_end_top_bottom"
+    android:layout_marginTop="@dimen/margin_start_end_top_bottom"
+    android:layout_marginBottom="@dimen/margin_start_end_top_bottom">
 
     <ImageView
       android:id="@+id/imageViewhHorizontal"
+      imageUrl="@{viewModelHorizontal.listItemHorizontal.imagePath}"
+      android:layout_width="@dimen/image_width"
+      android:layout_height="@dimen/image_height"
+      android:contentDescription="@string/image_horizontal"
+      android:scaleType="fitXY"
+      app:srcCompat="@drawable/ic_launcher_background" />
+
+    <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      app:srcCompat="@drawable/ic_launcher_background" />
-  </androidx.constraintlayout.widget.ConstraintLayout>
+      android:text="@{viewModelHorizontal.listItemHorizontal.categoryName}"
+      android:layout_gravity="start|top"
+      android:textColor="@color/white"
+      android:textSize="@dimen/text_size"
+      android:textStyle="italic"
+      android:layout_marginStart="@dimen/margin_start_end_top_bottom"
+      android:layout_marginTop="@dimen/margin_start_end_top_bottom"
+      android:shadowColor="@color/black"
+      android:shadowDx="3"
+      android:shadowDy="3"
+      android:shadowRadius="0.01"/>
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@{viewModelHorizontal.listItemHorizontal.subtitle}"
+      android:layout_gravity="start|bottom"
+      android:textColor="@color/white"
+      android:textSize="@dimen/text_size"
+      android:textStyle="bold"
+      android:layout_marginStart="@dimen/margin_start_end_top_bottom"
+      android:layout_marginBottom="@dimen/margin_start_end_top_bottom"
+      android:shadowColor="@color/black"
+      android:shadowDx="3"
+      android:shadowDy="3"
+      android:shadowRadius="0.01"/>
+
+  </FrameLayout>
 </layout>

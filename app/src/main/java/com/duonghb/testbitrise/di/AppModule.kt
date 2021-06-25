@@ -25,7 +25,7 @@ object AppModule {
 
     @Provides
     fun provideRetrofit(gson: Gson, httpClient: OkHttpClient): Retrofit = Retrofit.Builder()
-        .baseUrl(Constant.BASE_URL_0)
+        .baseUrl(Constant.BASE_URL)
         .client(httpClient)
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(GsonConverterFactory.create(gson))

@@ -1,18 +1,33 @@
 package com.duonghb.testbitrise.data.network
 
 import com.duonghb.testbitrise.constant.Constant
-import com.duonghb.testbitrise.domain.model0.HorizontalModel
-import com.duonghb.testbitrise.domain.model1.VerticalModel
-import com.duonghb.testbitrise.domain.result.Result
-import kotlinx.coroutines.Deferred
-import retrofit2.http.GET
-import retrofit2.http.Query
+import com.duonghb.testbitrise.domain.model.HorizontalModel
+import com.duonghb.testbitrise.domain.model.VerticalModel
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
+import retrofit2.http.POST
 
 interface ApiService {
 
-    @GET(Constant.GET_NEWS_lIST_0)
-    fun getList0(@Query(Constant.API_KEY_0) apiKey: String): Deferred<List<VerticalModel>>
+    @FormUrlEncoded
+    @POST(Constant.POST)
+    suspend fun getList0(
+        @Field("client_id") client_id: Int,
+        @Field("device_token") device_token: String?,
+        @Field("user_id") user_id: Int?,
+        @Field("is_type") is_type: Int,
+        @Field("limit") limit: Int,
+        @Field("offset") offset: Int
+    ): HorizontalModel
 
-    @GET(Constant.GET_NEWS_LIST_1)
-    fun getList1(@Query(Constant.API_KEY_1) apiKey: String): Deferred<List<HorizontalModel>>
+    @FormUrlEncoded
+    @POST(Constant.POST)
+    suspend fun getList1(
+        @Field("client_id") client_id: Int,
+        @Field("device_token") device_token: String?,
+        @Field("user_id") user_id: Int?,
+        @Field("is_type") is_type: Int,
+        @Field("limit") limit: Int,
+        @Field("offset") offset: Int
+    ): VerticalModel
 }

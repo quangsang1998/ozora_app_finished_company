@@ -1,14 +1,28 @@
 package com.duonghb.testbitrise.domain.usecase
 
 import com.duonghb.testbitrise.data.repository.NewsRepositoryImpl
-import com.duonghb.testbitrise.domain.model1.VerticalModel
-import com.duonghb.testbitrise.domain.result.Result
-import kotlinx.coroutines.Deferred
+import com.duonghb.testbitrise.domain.model.VerticalModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class GetNewsListVerticalUseCase(
-  private val newsRepositoryImpl: NewsRepositoryImpl
+@Singleton
+class GetNewsListVerticalUseCase @Inject constructor(
+    private val newsRepositoryImpl: NewsRepositoryImpl
 ) {
-  operator fun invoke(apiKey: String): Deferred<List<VerticalModel>> {
-    return newsRepositoryImpl.getNewsListVertical(apiKey)
-  }
+    suspend operator fun invoke(
+        client_id: Int,
+        device_token: String?,
+        user_id: Int?,
+        is_type: Int,
+        limit: Int,
+        offset: Int
+    ): VerticalModel {
+        return withContext(Dispatchers.Default) {
+            newsRepositoryImpl.getNewsListVertical(
+                client_id, device_token, user_id, is_type, limit, offset
+            )
+        }
+    }
 }

@@ -4,35 +4,71 @@
   xmlns:android="http://schemas.android.com/apk/res/android">
   <data>
 
+    <variable
+      name="viewModel"
+      type="com.duonghb.testbitrise.ui.news.NewsViewModel" />
+
   </data>
 
-  <androidx.constraintlayout.widget.ConstraintLayout
+  <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    android:id="@+id/newsSwipeRefresh"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    app:refreshing="@{viewModel.swipeRefreshing}"
+    app:onRefreshListener="@{() -> viewModel.swipeRefreshingData()}">
 
-    <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/recyclerViewHorizontal"
-      android:layout_width="wrap_content"
+    <androidx.core.widget.NestedScrollView
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-      app:layout_constraintBottom_toTopOf="@+id/recyclerViewVertical"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      tools:listitem="@layout/horizontal_item"/>
+      android:fillViewport="true">
 
-    <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/recyclerViewVertical"
-      android:layout_width="wrap_content"
-      android:layout_height="0dp"
-      android:orientation="vertical"
-      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/recyclerViewHorizontal"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      tools:listitem="@layout/vertical_item"/>
+      <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-  </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/recyclerViewHorizontal"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:layout_alignParentStart="true"
+          android:layout_alignParentEnd="true"
+          android:layout_alignParentTop="true"
+          app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+          tools:listitem="@layout/horizontal_item" />
+
+        <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/recyclerViewVertical"
+          android:layout_width="wrap_content"
+          android:layout_height="0dp"
+          android:layout_alignParentStart="true"
+          android:layout_alignParentEnd="true"
+          android:layout_alignParentBottom="true"
+          android:layout_below="@+id/recyclerViewHorizontal"
+          app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+          tools:listitem="@layout/vertical_item" />
+
+        <FrameLayout
+          android:id="@+id/progressLoading"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:alpha="0.4"
+          android:animateLayoutChanges="true"
+          android:background="@color/white"
+          android:clickable="true"
+          android:focusable="true"
+          android:visibility="@{viewModel.loading}">
+
+          <ProgressBar
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:theme="@style/Grey" />
+        </FrameLayout>
+
+      </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+  </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

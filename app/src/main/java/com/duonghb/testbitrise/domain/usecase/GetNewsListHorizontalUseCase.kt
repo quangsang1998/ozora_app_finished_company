@@ -1,10 +1,9 @@
 package com.duonghb.testbitrise.domain.usecase
 
 import com.duonghb.testbitrise.data.repository.NewsRepositoryImpl
-import com.duonghb.testbitrise.domain.model0.HorizontalModel
-import com.duonghb.testbitrise.domain.model1.VerticalModel
-import com.duonghb.testbitrise.domain.result.Result
-import kotlinx.coroutines.Deferred
+import com.duonghb.testbitrise.domain.model.HorizontalModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -12,7 +11,18 @@ import javax.inject.Singleton
 class GetNewsListHorizontalUseCase @Inject constructor(
     private val newsRepositoryImpl: NewsRepositoryImpl
 ) {
-    operator fun invoke(apiKey: String): Deferred<List<HorizontalModel>> {
-        return newsRepositoryImpl.getNewsListHorizontal(apiKey)
+    suspend operator fun invoke(
+        client_id: Int,
+        device_token: String?,
+        user_id: Int?,
+        is_type: Int,
+        limit: Int,
+        offset: Int
+    ): HorizontalModel {
+        return withContext(Dispatchers.Default) {
+            newsRepositoryImpl.getNewsListHorizontal(
+                client_id, device_token, user_id, is_type, limit, offset
+            )
+        }
     }
 }

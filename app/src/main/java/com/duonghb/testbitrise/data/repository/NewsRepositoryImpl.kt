@@ -1,22 +1,34 @@
 package com.duonghb.testbitrise.data.repository
 
 import com.duonghb.testbitrise.data.network.ApiService
-import com.duonghb.testbitrise.domain.model0.HorizontalModel
-import com.duonghb.testbitrise.domain.model1.VerticalModel
-import com.duonghb.testbitrise.domain.result.Result
-import kotlinx.coroutines.Deferred
+import com.duonghb.testbitrise.domain.model.HorizontalModel
+import com.duonghb.testbitrise.domain.model.VerticalModel
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class NewsRepositoryImpl @Inject constructor(
-  private val apiService: ApiService
+    private val apiService: ApiService
 ) {
-  fun getNewsListVertical(apiKey: String): Deferred<List<VerticalModel>> {
-      return apiService.getList0(apiKey)
-  }
+    suspend fun getNewsListHorizontal(
+        client_id: Int,
+        device_token: String?,
+        user_id: Int?,
+        is_type: Int,
+        limit: Int,
+        offset: Int
+    ): HorizontalModel {
+        return apiService.getList0(client_id, device_token, user_id, is_type, limit, offset)
+    }
 
-  fun getNewsListHorizontal(apiKey: String): Deferred<List<HorizontalModel>> {
-      return apiService.getList1(apiKey)
-  }
+    suspend fun getNewsListVertical(
+        client_id: Int,
+        device_token: String?,
+        user_id: Int?,
+        is_type: Int,
+        limit: Int,
+        offset: Int
+    ): VerticalModel {
+        return apiService.getList1(client_id, device_token, user_id, is_type, limit, offset)
+    }
 }

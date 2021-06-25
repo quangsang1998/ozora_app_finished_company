@@ -6,4 +6,7 @@
     <string name="tab_contents">コンテンツ</string>
     <string name="tab_news">ニュース</string>
     <string name="account">アカウント</string>
+    <string name="tab_event">イベント</string>
+    <string name="image_horizontal">Image Horizontal</string>
+    <string name="image_vertical">Image Vertical</string>
 </resources>
