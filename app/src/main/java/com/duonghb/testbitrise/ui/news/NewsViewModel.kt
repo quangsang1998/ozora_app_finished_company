@@ -12,6 +12,9 @@ import com.duonghb.testbitrise.domain.usecase.GetNewsListHorizontalUseCase
 import com.duonghb.testbitrise.domain.usecase.GetNewsListVerticalUseCase
 import com.duonghb.testbitrise.ui.common.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.zip
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -43,17 +46,15 @@ class NewsViewModel @Inject constructor(
 
     fun swipeRefreshingData() {
         _swipeRefreshing.postValue(true)
-        getHorizontal()
-        getVertical()
+        getALl()
     }
 
     init {
         _loading.postValue(true)
-        getHorizontal()
-        getVertical()
+        getALl()
     }
 
-    private fun getVertical() {
+    private fun getALl() {
         viewModelScope.launch {
             val getListVertical = getNewsListVerticalUseCase.invoke(
                 Constant.CLIENT_ID,
@@ -63,22 +64,7 @@ class NewsViewModel @Inject constructor(
                 Constant.LIMIT_VERTICAL,
                 Constant.OFFSET
             )
-            try {
-                val listVertical = getListVertical
-                    .data?.list?.map {
-                        VerticalListItemViewModel(it, this@NewsViewModel)
-                    }
-                _getVerticalCompleted.postValue(listVertical)
-                _swipeRefreshing.postValue(false)
-                _loading.postValue(false)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-    }
 
-    private fun getHorizontal() {
-        viewModelScope.launch {
             val getListHorizontal = getNewsListHorizontalUseCase.invoke(
                 Constant.CLIENT_ID,
                 null,
@@ -87,18 +73,32 @@ class NewsViewModel @Inject constructor(
                 Constant.LIMIT_HORIZONTAL,
                 Constant.OFFSET
             )
-            try {
-                val listHorizontal = getListHorizontal
-                    .data?.list?.map {
-                        HorizontalListItemViewModel(it, this@NewsViewModel)
-                    }
-                _getHorizontalCompleted.postValue(listHorizontal)
-                _swipeRefreshing.postValue(false)
-                _loading.postValue(false)
-            } catch (e: Exception) {
-                e.printStackTrace()
+            getListHorizontal.zip(getListVertical) { a, b ->
+
+                val h = a.data?.list?.map {
+                    HorizontalListItemViewModel(it, this@NewsViewModel)
+                }
+
+                val v = b.data?.list?.map {
+                    VerticalListItemViewModel(it, this@NewsViewModel)
+                }
+
+                Pair(h, v)
             }
+                // combine(getListHorizontal, getListVertical) { a, b -> Pair(a, b) }
+                .catch {
+                    _loading.postValue(false)
+                }
+                .collect {
+                    _getHorizontalCompleted.postValue(it.first)
+                    _getVerticalCompleted.postValue(it.second)
+                    _loading.postValue(false)
+                }
         }
+    }
+
+    fun loadMore() {
+
     }
 
     override fun onItemVerticalClick(listItemVertical: ListItemVertical?) {

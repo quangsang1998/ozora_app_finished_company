@@ -2,8 +2,8 @@ package com.duonghb.testbitrise.domain.usecase
 
 import com.duonghb.testbitrise.data.repository.NewsRepositoryImpl
 import com.duonghb.testbitrise.domain.model.VerticalModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -18,11 +18,11 @@ class GetNewsListVerticalUseCase @Inject constructor(
         is_type: Int,
         limit: Int,
         offset: Int
-    ): VerticalModel {
-        return withContext(Dispatchers.Default) {
+    ): Flow<VerticalModel> {
+        return flowOf(
             newsRepositoryImpl.getNewsListVertical(
                 client_id, device_token, user_id, is_type, limit, offset
             )
-        }
+        )
     }
 }
