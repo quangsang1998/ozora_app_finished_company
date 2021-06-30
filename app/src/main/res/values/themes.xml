@@ -19,7 +19,7 @@
         <item name="background">@color/blue</item>
     </style>
 
-    <style name="Grey" parent="ThemeOverlay.AppCompat.Light">
+    <style name="Gray" parent="ThemeOverlay.AppCompat.Light">
         <item name="colorAccent">@color/gray</item>
     </style>
 </resources>

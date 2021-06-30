@@ -8,11 +8,11 @@ import com.xwray.groupie.Item
 import com.xwray.groupie.viewbinding.BindableItem
 
 data class VerticalListItemViewModel(
-    val listItemVertical: ListItemVertical?,
+    val listItemVertical: ListItemVertical,
     val listener: Listener
 ) {
     interface Listener {
-        fun onItemVerticalClick(listItemVertical: ListItemVertical?)
+        fun onItemVerticalClick(listItemVertical: ListItemVertical)
     }
 
     fun onItemVerticalClick() {
@@ -36,8 +36,8 @@ class VerticalListItem(
     }
 
     override fun isSameAs(other: Item<*>): Boolean =
-        (other as VerticalListItem).viewModel.listItemVertical?.id ==
-            viewModel.listItemVertical?.id
+        (other as VerticalListItem).viewModel.listItemVertical.id ==
+            viewModel.listItemVertical.id
 
     override fun hasSameContentAs(other: Item<*>): Boolean =
         (other as VerticalListItem).viewModel.listItemVertical == viewModel.listItemVertical

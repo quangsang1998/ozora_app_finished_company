@@ -7,9 +7,9 @@ import com.duonghb.testbitrise.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AccountFragment: Fragment(R.layout.account_fragment) {
+class AccountFragment : Fragment(R.layout.account_fragment) {
 
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-  }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
 }

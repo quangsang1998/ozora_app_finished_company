@@ -10,4 +10,5 @@
     <string name="image_horizontal">Image Horizontal</string>
     <string name="image_vertical">Image Vertical</string>
     <string name="loadmore">もっと表示する</string>
+    <string name="add_image">プロフィール写真を追加</string>
 </resources>

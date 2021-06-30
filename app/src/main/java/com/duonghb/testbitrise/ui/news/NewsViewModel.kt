@@ -30,11 +30,14 @@ class NewsViewModel @Inject constructor(
     val onEventHorizontal: LiveData<Event> get() = _onEventHorizontal
     private val _onEventHorizontal = MutableLiveData<Event>()
 
-    val getHorizontalCompleted: LiveData<List<HorizontalListItemViewModel>?> get() = _getHorizontalCompleted
-    private val _getHorizontalCompleted = MutableLiveData<List<HorizontalListItemViewModel>?>()
+    val getHorizontalCompleted: LiveData<List<HorizontalListItemViewModel>> get() = _getHorizontalCompleted
+    private val _getHorizontalCompleted = MutableLiveData<List<HorizontalListItemViewModel>>()
 
-    val getVerticalCompleted: LiveData<List<VerticalListItemViewModel>?> get() = _getVerticalCompleted
-    private val _getVerticalCompleted = MutableLiveData<List<VerticalListItemViewModel>?>()
+    val getVerticalCompleted: LiveData<List<VerticalListItemViewModel>> get() = _getVerticalCompleted
+    private val _getVerticalCompleted = MutableLiveData<List<VerticalListItemViewModel>>()
+
+    val getMoreVerticalCompleted: LiveData<List<VerticalListItemViewModel>> get() = _getMoreVerticalCompleted
+    private val _getMoreVerticalCompleted = MutableLiveData<List<VerticalListItemViewModel>>()
 
     val swipeRefreshing: LiveData<Boolean> get() = _swipeRefreshing
     private val _swipeRefreshing = MutableLiveData<Boolean>()
@@ -44,17 +47,36 @@ class NewsViewModel @Inject constructor(
         if (it) View.VISIBLE else View.GONE
     }
 
+    private val _buttonLoad = MutableLiveData<StateLoadMore>()
+
+    val buttonLoad = _buttonLoad.map {
+        when (it) {
+            StateLoadMore.START, StateLoadMore.DONE -> View.VISIBLE
+            StateLoadMore.LOADING, StateLoadMore.END -> View.GONE
+        }
+    }
+
+    val loadingMore = _buttonLoad.map {
+        when (it) {
+            StateLoadMore.LOADING -> View.VISIBLE
+            else -> View.GONE
+        }
+    }
+
+    private var offSet: Int = 0
+
     fun swipeRefreshingData() {
         _swipeRefreshing.postValue(true)
         getALl()
     }
 
     init {
+        _buttonLoad.postValue(StateLoadMore.END)
         _loading.postValue(true)
         getALl()
     }
 
-    private fun getALl() {
+    fun getALl() {
         viewModelScope.launch {
             val getListVertical = getNewsListVerticalUseCase.invoke(
                 Constant.CLIENT_ID,
@@ -75,42 +97,74 @@ class NewsViewModel @Inject constructor(
             )
             getListHorizontal.zip(getListVertical) { a, b ->
 
-                val h = a.data?.list?.map {
+                val h = a.data.list.map {
                     HorizontalListItemViewModel(it, this@NewsViewModel)
                 }
 
-                val v = b.data?.list?.map {
+                val v = b.data.list.map {
                     VerticalListItemViewModel(it, this@NewsViewModel)
                 }
 
                 Pair(h, v)
             }
-                // combine(getListHorizontal, getListVertical) { a, b -> Pair(a, b) }
                 .catch {
                     _loading.postValue(false)
                 }
                 .collect {
                     _getHorizontalCompleted.postValue(it.first)
                     _getVerticalCompleted.postValue(it.second)
+                    _swipeRefreshing.postValue(false)
                     _loading.postValue(false)
+                    _buttonLoad.postValue(StateLoadMore.DONE)
                 }
         }
     }
 
     fun loadMore() {
+        _buttonLoad.postValue(StateLoadMore.LOADING)
+        offSet += Constant.LIMIT_VERTICAL
+        viewModelScope.launch {
+            val getListVertical = getNewsListVerticalUseCase.invoke(
+                Constant.CLIENT_ID,
+                null,
+                null,
+                Constant.TYPE_VERTICAL,
+                Constant.LIMIT_VERTICAL,
+                offSet
+            )
 
+            getListVertical
+                .collect {
+                    val v = it.data.list.map {
+                        VerticalListItemViewModel(it, this@NewsViewModel)
+                    }
+                    _getMoreVerticalCompleted.postValue(v)
+                    _buttonLoad.postValue(StateLoadMore.DONE)
+                    if (it.data.list.size.compareTo(offSet) <= 0) {
+                        _buttonLoad.postValue(StateLoadMore.END)
+                    }
+                }
+        }
     }
 
-    override fun onItemVerticalClick(listItemVertical: ListItemVertical?) {
+    override fun onItemVerticalClick(listItemVertical: ListItemVertical) {
         _onEventVertical.value = Event.ClickedVerticalItem(listItemVertical)
     }
 
-    override fun onItemHorizontalClick(listItemHorizontal: ListItemHorizontal?) {
+    override fun onItemHorizontalClick(listItemHorizontal: ListItemHorizontal) {
         _onEventHorizontal.value = Event.ClickedHorizontalItem(listItemHorizontal)
     }
 
     sealed class Event {
-        class ClickedVerticalItem(val listItemVertical: ListItemVertical?) : Event()
-        class ClickedHorizontalItem(val listItemHorizontal: ListItemHorizontal?) : Event()
+        class ClickedVerticalItem(val listItemVertical: ListItemVertical) : Event()
+        class ClickedHorizontalItem(val listItemHorizontal: ListItemHorizontal) : Event()
+        class ClickedVerticalItemLoadMore(val listItemVertical: ListItemVertical) : Event()
+    }
+
+    enum class StateLoadMore {
+        START,
+        LOADING,
+        DONE,
+        END;
     }
 }
