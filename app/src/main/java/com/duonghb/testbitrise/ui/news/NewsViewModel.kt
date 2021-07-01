@@ -30,13 +30,16 @@ class NewsViewModel @Inject constructor(
     val onEventHorizontal: LiveData<Event> get() = _onEventHorizontal
     private val _onEventHorizontal = MutableLiveData<Event>()
 
-    val getHorizontalCompleted: LiveData<List<HorizontalListItemViewModel>> get() = _getHorizontalCompleted
+    val getHorizontalCompleted: LiveData<List<HorizontalListItemViewModel>>
+        get() = _getHorizontalCompleted
     private val _getHorizontalCompleted = MutableLiveData<List<HorizontalListItemViewModel>>()
 
-    val getVerticalCompleted: LiveData<List<VerticalListItemViewModel>> get() = _getVerticalCompleted
+    val getVerticalCompleted: LiveData<List<VerticalListItemViewModel>>
+        get() = _getVerticalCompleted
     private val _getVerticalCompleted = MutableLiveData<List<VerticalListItemViewModel>>()
 
-    val getMoreVerticalCompleted: LiveData<List<VerticalListItemViewModel>> get() = _getMoreVerticalCompleted
+    val getMoreVerticalCompleted: LiveData<List<VerticalListItemViewModel>>
+        get() = _getMoreVerticalCompleted
     private val _getMoreVerticalCompleted = MutableLiveData<List<VerticalListItemViewModel>>()
 
     val swipeRefreshing: LiveData<Boolean> get() = _swipeRefreshing

@@ -5,13 +5,11 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.DividerItemDecoration
 import com.duonghb.testbitrise.R
 import com.duonghb.testbitrise.databinding.NewsFragmentBinding
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.news_fragment.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
