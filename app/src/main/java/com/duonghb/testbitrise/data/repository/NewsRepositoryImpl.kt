@@ -18,7 +18,7 @@ class NewsRepositoryImpl @Inject constructor(
         limit: Int,
         offset: Int
     ): HorizontalModel {
-        return apiService.getList0(client_id, device_token, user_id, is_type, limit, offset)
+        return apiService.getListHorizontal(client_id, device_token, user_id, is_type, limit, offset)
     }
 
     suspend fun getNewsListVertical(
@@ -29,6 +29,6 @@ class NewsRepositoryImpl @Inject constructor(
         limit: Int,
         offset: Int
     ): VerticalModel {
-        return apiService.getList1(client_id, device_token, user_id, is_type, limit, offset)
+        return apiService.getListVertical(client_id, device_token, user_id, is_type, limit, offset)
     }
 }

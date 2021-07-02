@@ -10,7 +10,7 @@ interface ApiService {
 
     @FormUrlEncoded
     @POST("news")
-    suspend fun getList0(
+    suspend fun getListHorizontal(
         @Field("client_id") client_id: Int,
         @Field("device_token") device_token: String?,
         @Field("user_id") user_id: Int?,
@@ -21,7 +21,7 @@ interface ApiService {
 
     @FormUrlEncoded
     @POST("news")
-    suspend fun getList1(
+    suspend fun getListVertical(
         @Field("client_id") client_id: Int,
         @Field("device_token") device_token: String?,
         @Field("user_id") user_id: Int?,
