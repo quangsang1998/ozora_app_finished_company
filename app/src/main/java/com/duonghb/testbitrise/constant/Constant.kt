@@ -2,10 +2,6 @@ package com.duonghb.testbitrise.constant
 
 object Constant {
 
-    const val BASE_URL: String = "https://kanri.ohzora.ac.jp/api/"
-
-    const val POST: String = "news"
-
     const val CLIENT_ID: Int = 1
 
     const val TYPE_VERTICAL: Int = 1

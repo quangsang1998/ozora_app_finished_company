@@ -11,93 +11,56 @@
 
   </data>
 
-  <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-      android:id="@+id/newsSwipeRefresh"
+  <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      app:onRefreshListener="@{() -> viewModel.swipeRefreshingData()}"
-      app:refreshing="@{viewModel.swipeRefreshing}">
+      android:layout_height="match_parent">
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/newsSwipeRefresh"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fillViewport="true">
+        android:layout_height="match_parent"
+        app:onRefreshListener="@{() -> viewModel.swipeRefreshingData()}"
+        app:refreshing="@{viewModel.swipeRefreshing}">
 
-      <androidx.constraintlayout.widget.ConstraintLayout
+      <androidx.core.widget.NestedScrollView
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:paddingBottom="@dimen/padding_bottom_button">
+          android:layout_height="wrap_content"
+          android:fillViewport="true">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewHorizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/horizontal_item" />
-
-        <View
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/separator_height"
-            android:background="@color/divider_gray"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerViewHorizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/recyclerViewVertical"/>
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/padding_bottom_button">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewVertical"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerViewHorizontal"
-            tools:listitem="@layout/vertical_item" />
+          <androidx.recyclerview.widget.RecyclerView
+              android:id="@+id/recyclerViewHorizontal"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="parent"
+              tools:listitem="@layout/horizontal_item" />
 
-        <ProgressBar
-            style="?android:attr/progressBarStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:indeterminate="true"
-            android:theme="@style/Gray"
-            android:visibility="@{viewModel.loadingMore}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerViewVertical" />
+          <View
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/separator_height"
+              android:background="@color/divider_gray"
+              app:layout_constraintBottom_toTopOf="@+id/recyclerViewVertical"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/recyclerViewHorizontal" />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|bottom"
-            android:onClick="@{() -> viewModel.loadMore()}"
-            android:text="@string/loadmore"
-            android:textColor="@color/blue"
-            android:theme="@style/Gray"
-            android:visibility="@{viewModel.buttonLoad}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerViewVertical" />
-
-        <FrameLayout
-            android:id="@+id/progressLoading"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:alpha="1"
-            android:background="@color/white"
-            android:clickable="true"
-            android:focusable="true"
-            android:visibility="@{viewModel.loading}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="gone">
+          <androidx.recyclerview.widget.RecyclerView
+              android:id="@+id/recyclerViewVertical"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/recyclerViewHorizontal"
+              tools:listitem="@layout/vertical_item" />
 
           <ProgressBar
               style="?android:attr/progressBarStyleSmall"
@@ -105,10 +68,33 @@
               android:layout_height="wrap_content"
               android:layout_gravity="center"
               android:indeterminate="true"
-              android:theme="@style/Gray" />
-        </FrameLayout>
+              android:theme="@style/Gray"
+              android:visibility="@{viewModel.loadingMore}"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/recyclerViewVertical" />
 
-      </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
-  </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+          <Button
+              android:id="@+id/button"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center|bottom"
+              android:onClick="@{() -> viewModel.loadMore()}"
+              android:text="@{viewModel.loadMoreText}"
+              android:textColor="@color/blue"
+              android:theme="@style/Gray"
+              android:visibility="@{viewModel.buttonLoad}"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/recyclerViewVertical" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+      </androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <include
+        layout="@layout/loading"
+        android:visibility="@{viewModel.loading}"
+        tools:visibility="gone" />
+  </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

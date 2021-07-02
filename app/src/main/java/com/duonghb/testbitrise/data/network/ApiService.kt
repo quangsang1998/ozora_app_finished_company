@@ -1,6 +1,5 @@
 package com.duonghb.testbitrise.data.network
 
-import com.duonghb.testbitrise.constant.Constant
 import com.duonghb.testbitrise.domain.model.HorizontalModel
 import com.duonghb.testbitrise.domain.model.VerticalModel
 import retrofit2.http.Field
@@ -10,7 +9,7 @@ import retrofit2.http.POST
 interface ApiService {
 
     @FormUrlEncoded
-    @POST(Constant.POST)
+    @POST("news")
     suspend fun getList0(
         @Field("client_id") client_id: Int,
         @Field("device_token") device_token: String?,
@@ -21,7 +20,7 @@ interface ApiService {
     ): HorizontalModel
 
     @FormUrlEncoded
-    @POST(Constant.POST)
+    @POST("news")
     suspend fun getList1(
         @Field("client_id") client_id: Int,
         @Field("device_token") device_token: String?,

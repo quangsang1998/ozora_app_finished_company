@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "597699925359",
+    "project_id": "ozora-app",
+    "storage_bucket": "ozora-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:597699925359:android:642cbbd89d6d6677b0049a",
+        "android_client_info": {
+          "package_name": "com.duonghb.testbitrise"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "597699925359-aogo464mogdqp4am715nvff9iil0f7bo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCu7luW0R1pwP1MQrktnOJoV6NJEzRtrFA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "597699925359-aogo464mogdqp4am715nvff9iil0f7bo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

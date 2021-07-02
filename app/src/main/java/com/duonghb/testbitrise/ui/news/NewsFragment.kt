@@ -32,7 +32,7 @@ class NewsFragment : Fragment(R.layout.news_fragment) {
         binding.viewModel = viewModel
 
         val dividerItemDecoration =
-            DividerItemDecorator(ContextCompat.getDrawable(requireContext(), R.drawable.layer)!!)
+            DividerItemDecorator(ContextCompat.getDrawable(requireContext(), R.drawable.divider)!!)
         binding.recyclerViewVertical.addItemDecoration(dividerItemDecoration)
 
         binding.recyclerViewHorizontal.adapter = adapterHorizontal

@@ -1,6 +1,6 @@
 package com.duonghb.testbitrise.di
 
-import com.duonghb.testbitrise.constant.Constant
+import com.duonghb.testbitrise.BuildConfig
 import com.duonghb.testbitrise.data.network.ApiService
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -25,7 +25,7 @@ object AppModule {
 
     @Provides
     fun provideRetrofit(gson: Gson, httpClient: OkHttpClient): Retrofit = Retrofit.Builder()
-        .baseUrl(Constant.BASE_URL)
+        .baseUrl(BuildConfig.BASE_URL)
         .client(httpClient)
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(GsonConverterFactory.create(gson))
@@ -46,7 +46,8 @@ object AppModule {
     @Provides
     fun provideOkHttp(): HttpLoggingInterceptor {
         val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+        loggingInterceptor.level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
+        else HttpLoggingInterceptor.Level.NONE
 
         return loggingInterceptor
     }

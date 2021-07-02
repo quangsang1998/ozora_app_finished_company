@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
+import com.duonghb.testbitrise.R
 import com.duonghb.testbitrise.constant.Constant
 import com.duonghb.testbitrise.domain.model.ListItemHorizontal
 import com.duonghb.testbitrise.domain.model.ListItemVertical
@@ -50,11 +51,11 @@ class NewsViewModel @Inject constructor(
         if (it) View.VISIBLE else View.GONE
     }
 
-    private val _buttonLoad = MutableLiveData<StateLoadMore>()
+    private val _buttonLoad = MutableLiveData(StateLoadMore.START)
 
     val buttonLoad = _buttonLoad.map {
         when (it) {
-            StateLoadMore.START, StateLoadMore.DONE -> View.VISIBLE
+            StateLoadMore.START, StateLoadMore.DONE, StateLoadMore.ERROR -> View.VISIBLE
             StateLoadMore.LOADING, StateLoadMore.END -> View.GONE
         }
     }
@@ -66,9 +67,17 @@ class NewsViewModel @Inject constructor(
         }
     }
 
+    val loadMoreText = _buttonLoad.map {
+        when (it) {
+            StateLoadMore.ERROR -> R.string.load_more_error
+            else -> R.string.loadmore
+        }
+    }
+
     private var offSet: Int = 0
 
     fun swipeRefreshingData() {
+        offSet = 0
         _swipeRefreshing.postValue(true)
         getALl()
     }
@@ -137,13 +146,16 @@ class NewsViewModel @Inject constructor(
             )
 
             getListVertical
+                .catch {
+                    _buttonLoad.postValue(StateLoadMore.ERROR)
+                }
                 .collect {
                     val v = it.data.list.map {
                         VerticalListItemViewModel(it, this@NewsViewModel)
                     }
                     _getMoreVerticalCompleted.postValue(v)
                     _buttonLoad.postValue(StateLoadMore.DONE)
-                    if (it.data.list.size.compareTo(offSet) <= 0) {
+                    if (it.data.list.size <= Constant.LIMIT_VERTICAL) {
                         _buttonLoad.postValue(StateLoadMore.END)
                     }
                 }
@@ -168,6 +180,7 @@ class NewsViewModel @Inject constructor(
         START,
         LOADING,
         DONE,
+        ERROR,
         END;
     }
 }

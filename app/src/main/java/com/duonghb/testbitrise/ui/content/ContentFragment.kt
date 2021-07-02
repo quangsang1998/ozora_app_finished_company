@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import com.duonghb.testbitrise.R
 import com.duonghb.testbitrise.databinding.ContentFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_main.*
 
 @AndroidEntryPoint
 class ContentFragment : Fragment(R.layout.content_fragment) {
