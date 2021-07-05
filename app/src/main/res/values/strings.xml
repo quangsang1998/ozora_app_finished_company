@@ -3,4 +3,27 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="image_content">profile_image</string>
+    <string name="tab_contents">コンテンツ</string>
+    <string name="tab_news">ニュース</string>
+    <string name="account">アカウント</string>
+    <string name="tab_event">イベント</string>
+    <string name="image_horizontal">Image Horizontal</string>
+    <string name="image_vertical">Image Vertical</string>
+    <string name="loadmore">もっと表示する</string>
+    <string name="load_more_error">Try</string>
+    <string name="add_image">プロフィール写真を追加</string>
+    <string name="email">メールアドレス</string>
+    <string name="password">パスワード</string>
+    <string name="password_confirm">パスワード (再入力)</string>
+    <string name="gender">性別</string>
+    <string name="male">男性</string>
+    <string name="female">女性</string>
+    <string name="confirm">確定</string>
+    <string name="have_account">アカウントをお持ちの方は</string>
+    <string name="here">こちら</string>
+    <string name="term">利用規約</string>
+    <string name="privacy_policy">プライバシーポリシー</string>
+    <string name="profile_setting">アカウント設定</string>
+    <string name="name">名前</string>
 </resources>
