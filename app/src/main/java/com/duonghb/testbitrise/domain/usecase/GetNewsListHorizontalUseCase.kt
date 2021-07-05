@@ -3,7 +3,6 @@ package com.duonghb.testbitrise.domain.usecase
 import com.duonghb.testbitrise.data.repository.NewsRepositoryImpl
 import com.duonghb.testbitrise.domain.model.HorizontalModel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -19,10 +18,8 @@ class GetNewsListHorizontalUseCase @Inject constructor(
         limit: Int,
         offset: Int
     ): Flow<HorizontalModel> {
-        return flowOf(
-            newsRepositoryImpl.getNewsListHorizontal(
-                client_id, device_token, user_id, is_type, limit, offset
-            )
+        return newsRepositoryImpl.getNewsListHorizontal(
+            client_id, device_token, user_id, is_type, limit, offset
         )
     }
 }
