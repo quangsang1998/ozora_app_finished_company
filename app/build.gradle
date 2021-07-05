@@ -38,6 +38,7 @@ android {
         }
         release {
             minifyEnabled false
+            buildConfigField "String", "BASE_URL", "\"https://kanri.ohzora.ac.jp/api/\""
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
