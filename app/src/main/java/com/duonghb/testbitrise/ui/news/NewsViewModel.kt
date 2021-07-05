@@ -123,8 +123,9 @@ class NewsViewModel @Inject constructor(
                     _loading.postValue(false)
                 }
                 .collect {
-                    _getHorizontalCompleted.postValue(it.first)
-                    _getVerticalCompleted.postValue(it.second)
+                    offSet += Constant.LIMIT_VERTICAL
+                    _getHorizontalCompleted.postValue(requireNotNull(it.first))
+                    _getVerticalCompleted.postValue(requireNotNull(it.second))
                     _swipeRefreshing.postValue(false)
                     _loading.postValue(false)
                     _buttonLoad.postValue(StateLoadMore.DONE)
@@ -134,7 +135,6 @@ class NewsViewModel @Inject constructor(
 
     fun loadMore() {
         _buttonLoad.postValue(StateLoadMore.LOADING)
-        offSet += Constant.LIMIT_VERTICAL
         viewModelScope.launch {
             val getListVertical = getNewsListVerticalUseCase.invoke(
                 Constant.CLIENT_ID,
@@ -150,12 +150,13 @@ class NewsViewModel @Inject constructor(
                     _buttonLoad.postValue(StateLoadMore.ERROR)
                 }
                 .collect {
+                    offSet += Constant.LIMIT_VERTICAL
                     val v = it.data.list.map {
                         VerticalListItemViewModel(it, this@NewsViewModel)
                     }
                     _getMoreVerticalCompleted.postValue(v)
                     _buttonLoad.postValue(StateLoadMore.DONE)
-                    if (it.data.list.size <= Constant.LIMIT_VERTICAL) {
+                    if (it.data.list.size < Constant.LIMIT_VERTICAL) {
                         _buttonLoad.postValue(StateLoadMore.END)
                     }
                 }
