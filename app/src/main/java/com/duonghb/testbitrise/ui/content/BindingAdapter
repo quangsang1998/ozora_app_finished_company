@@ -1,0 +1,13 @@
+package com.duonghb.testbitrise.ui.content
+
+import android.view.View
+import androidx.annotation.DimenRes
+import androidx.databinding.BindingAdapter
+
+@BindingAdapter("custom_width")
+fun setLayoutWidth1(view: View, @DimenRes widthRes: Int) {
+    val width = view.context.resources.getDimensionPixelSize(widthRes)
+    val a = view.layoutParams
+    a.width = width
+    view.layoutParams = a
+}

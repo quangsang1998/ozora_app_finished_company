@@ -88,7 +88,7 @@ class NewsViewModel @Inject constructor(
         getALl()
     }
 
-    fun getALl() {
+    private fun getALl() {
         viewModelScope.launch {
             val getListVertical = getNewsListVerticalUseCase.invoke(
                 Constant.CLIENT_ID,
@@ -174,7 +174,6 @@ class NewsViewModel @Inject constructor(
     sealed class Event {
         class ClickedVerticalItem(val listItemVertical: ListItemVertical) : Event()
         class ClickedHorizontalItem(val listItemHorizontal: ListItemHorizontal) : Event()
-        class ClickedVerticalItemLoadMore(val listItemVertical: ListItemVertical) : Event()
     }
 
     enum class StateLoadMore {
