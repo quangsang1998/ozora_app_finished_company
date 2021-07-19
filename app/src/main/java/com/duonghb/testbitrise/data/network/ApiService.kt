@@ -1,6 +1,10 @@
 package com.duonghb.testbitrise.data.network
 
-import com.duonghb.testbitrise.domain.model.*
+import com.duonghb.testbitrise.domain.model.HorizontalModel
+import com.duonghb.testbitrise.domain.model.LargeCategoryModel
+import com.duonghb.testbitrise.domain.model.SubCategoryModel
+import com.duonghb.testbitrise.domain.model.SubContentModel
+import com.duonghb.testbitrise.domain.model.VerticalModel
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST

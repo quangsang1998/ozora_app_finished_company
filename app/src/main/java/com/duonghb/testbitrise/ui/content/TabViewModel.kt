@@ -35,10 +35,6 @@ class TabViewModel @Inject constructor(
         get() = _getListSubCategory
     private val _getListSubCategory = MutableLiveData<List<SubCategoryListItemViewModel>>()
 
-    val getMoreSubContents: LiveData<List<SubContentListItemViewModel>>
-        get() = _getMoreSubContents
-    private val _getMoreSubContents = MutableLiveData<List<SubContentListItemViewModel>>()
-
     val onEventSubCategory: LiveData<Event> get() = _onEventSubCategory
     private val _onEventSubCategory = MutableLiveData<Event>()
 
@@ -54,8 +50,6 @@ class TabViewModel @Inject constructor(
     }
 
     private var categoryId: Int = 0
-
-    var isLoading: Boolean = false
 
     fun init(categoryId: Int) {
         _loadContents.postValue(true)
@@ -133,7 +127,6 @@ class TabViewModel @Inject constructor(
                 }
                 .collect {
                     callBack.addItem(position, it)
-                    isLoading = false
                 }
         }
     }

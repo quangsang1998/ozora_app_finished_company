@@ -17,11 +17,8 @@ data class SubContentListItemViewModel(
         fun onItemSubContentClick(listItemSubContent: ListItemSubContent)
     }
 
-//    fun onItemSubContentClick() {
-//        listener.onItemSubContentClick(subCategory.contents)
-//    }
-
     val image get() = content.thumbnail
+    val title get() = content.title
 }
 
 class SubContentListItem(

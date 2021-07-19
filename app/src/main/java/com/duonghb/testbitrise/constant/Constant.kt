@@ -6,11 +6,7 @@ object Constant {
 
     const val CLIENT_ID_LARGE_CATEGORY: Int = 1
 
-    const val ID_CATEGORY: Int = 44
-
     const val CLIENT_ID_SUB_CATEGORY: Int = 1
-
-    const val ID_SUB_CATEGORY: Int = 96
 
     const val TYPE_VERTICAL: Int = 1
 
@@ -20,13 +16,9 @@ object Constant {
 
     const val LIMIT_HORIZONTAL: Int = 10
 
-    const val LIMIT_LARGE_CATEGORY: Int = 10
-
     const val LIMIT_SUB_CATEGORY: Int = 10
 
     const val OFFSET: Int = 0
-
-    const val OFFSET_LARGE_CATEGORY: Int = 0
 
     const val OFFSET_SUB_CATEGORY: Int = 0
 }
