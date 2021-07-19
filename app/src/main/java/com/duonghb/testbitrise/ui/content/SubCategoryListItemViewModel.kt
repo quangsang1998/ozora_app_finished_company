@@ -72,11 +72,19 @@ class SubCategoryListItem(
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
-                val linearLayoutManager: LinearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val linearLayoutManager: LinearLayoutManager = recyclerView.layoutManager
+                    as LinearLayoutManager
 
-                if (viewModel.getState() == LoadState.LOADING && linearLayoutManager.findLastCompletelyVisibleItemPosition() == viewModel.tabContent.contents.size.minus(1)) {
+                if (viewModel.getState() == LoadState.LOADING &&
+                    linearLayoutManager.findLastCompletelyVisibleItemPosition() ==
+                    viewModel.tabContent.contents.size.minus(1)
+                ) {
                     offset += Constant.LIMIT_SUB_CATEGORY
-                    tabViewModel.loadMore(viewModel.tabContent.subCategory, offset, position, this@SubCategoryListItem)
+                    tabViewModel.loadMore(
+                        viewModel.tabContent.subCategory,
+                        offset, position,
+                        this@SubCategoryListItem
+                    )
                 }
             }
         })
@@ -127,31 +135,33 @@ class SubCategoryListItem(
 
     private fun renderItem(position: Int) {
         when (position) {
-            0 -> viewModel.tabContent.contents.map {
-                FirstSubContentListItem(
-                    FirstSubContentViewModel(
-                        it,
-                        viewModel.firstContentListener
-                    )
-                )
-            }.let {
-                adapter.updateAsync(it)
-            }
-
-            else -> viewModel.tabContent.contents.map {
-                if (it.thumbnailType == 1) {
-                    SubContentRectangleListItem(
-                        SubContentListItemViewModel(
+            0 ->
+                viewModel.tabContent.contents.map {
+                    FirstSubContentListItem(
+                        FirstSubContentViewModel(
                             it,
-                            viewModel.contentlistener
+                            viewModel.firstContentListener
                         )
                     )
-                } else {
-                    SubContentListItem(SubContentListItemViewModel(it, viewModel.contentlistener))
+                }.let {
+                    adapter.updateAsync(it)
                 }
-            }.let {
-                adapter.updateAsync(it)
-            }
+
+            else ->
+                viewModel.tabContent.contents.map {
+                    if (it.thumbnailType == 1) {
+                        SubContentRectangleListItem(
+                            SubContentListItemViewModel(
+                                it,
+                                viewModel.contentlistener
+                            )
+                        )
+                    } else {
+                        SubContentListItem(SubContentListItemViewModel(it, viewModel.contentlistener))
+                    }
+                }.let {
+                    adapter.updateAsync(it)
+                }
         }
     }
 }

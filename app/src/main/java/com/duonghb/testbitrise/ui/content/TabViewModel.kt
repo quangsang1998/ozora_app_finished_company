@@ -112,7 +112,13 @@ class TabViewModel @Inject constructor(
         }
     }
 
-    fun loadMore(subCategory: ListItemSubCategory?, offset: Int, position: Int, callBack: Callback) {
+    fun loadMore(
+        subCategory: ListItemSubCategory?,
+        offset: Int,
+        position: Int,
+        callBack: Callback
+    ) {
+
         viewModelScope.launch {
             getListSubContentUseCase.invoke(
                 client_id = Constant.CLIENT_ID_SUB_CATEGORY,

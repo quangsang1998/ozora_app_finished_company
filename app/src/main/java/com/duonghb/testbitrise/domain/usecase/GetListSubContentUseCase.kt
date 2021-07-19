@@ -19,7 +19,11 @@ class GetListSubContentUseCase @Inject constructor(
         offset: Int
     ): Flow<TabContent> {
         return contentRepository.getSubContents(
-            client_id, category_id, subCategory, limit, offset
+            client_id,
+            category_id,
+            subCategory,
+            limit,
+            offset
         )
     }
 }
