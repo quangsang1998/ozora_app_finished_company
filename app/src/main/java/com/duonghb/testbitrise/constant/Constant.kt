@@ -6,8 +6,6 @@ object Constant {
 
     const val CLIENT_ID_LARGE_CATEGORY: Int = 1
 
-    const val CLIENT_ID_SUB_CATEGORY: Int = 1
-
     const val TYPE_VERTICAL: Int = 1
 
     const val TYPE_HORIZONTAL: Int = 0

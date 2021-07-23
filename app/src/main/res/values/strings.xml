@@ -4,6 +4,10 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="image_content">profile_image</string>
+    <string name="positive_dialog">OK</string>
+    <string name="negative_dialog">Cancel</string>
+    <string name="network_notification">Network Error</string>
+    <string name="error_notification">Error Notification</string>
     <string name="tab_contents">コンテンツ</string>
     <string name="tab_news">ニュース</string>
     <string name="account">アカウント</string>

@@ -49,6 +49,9 @@ class TabViewModel @Inject constructor(
         if (it) View.VISIBLE else View.GONE
     }
 
+    val onEventError: LiveData<Event> get() = _onEventError
+    private val _onEventError = MutableLiveData<Event>()
+
     private var categoryId: Int = 0
 
     fun init(categoryId: Int) {
@@ -66,13 +69,13 @@ class TabViewModel @Inject constructor(
         this.categoryId = categoryId
         viewModelScope.launch {
             getListSubCategoriesUseCase.invoke(
-                client_id = Constant.CLIENT_ID_SUB_CATEGORY,
+                client_id = Constant.CLIENT_ID,
                 id = categoryId
             )
                 .flatMapConcat { list ->
                     list.map {
                         getListSubContentUseCase.invoke(
-                            client_id = Constant.CLIENT_ID_SUB_CATEGORY,
+                            client_id = Constant.CLIENT_ID,
                             category_id = categoryId,
                             subCategory = it,
                             limit = Constant.LIMIT_SUB_CATEGORY,
@@ -82,7 +85,7 @@ class TabViewModel @Inject constructor(
                         add(
                             0,
                             getListSubContentUseCase.invoke(
-                                client_id = Constant.CLIENT_ID_SUB_CATEGORY,
+                                client_id = Constant.CLIENT_ID,
                                 category_id = categoryId,
                                 limit = Constant.LIMIT_SUB_CATEGORY,
                                 offset = Constant.OFFSET_SUB_CATEGORY
@@ -103,6 +106,9 @@ class TabViewModel @Inject constructor(
                     }
                 }
                 .catch {
+                    _onEventError.value = Event.Error(
+                        ErrorHandle().getErrorMessage(this.run { it })
+                    )
                 }
                 .collect {
                     _getListSubCategory.postValue(it)
@@ -121,7 +127,7 @@ class TabViewModel @Inject constructor(
 
         viewModelScope.launch {
             getListSubContentUseCase.invoke(
-                client_id = Constant.CLIENT_ID_SUB_CATEGORY,
+                client_id = Constant.CLIENT_ID,
                 category_id = categoryId,
                 subCategory = subCategory,
                 limit = Constant.LIMIT_SUB_CATEGORY,
@@ -130,6 +136,9 @@ class TabViewModel @Inject constructor(
                 it.contents
             }
                 .catch {
+                    _onEventError.value = Event.Error(
+                        ErrorHandle().getErrorMessage(this.run { it })
+                    )
                 }
                 .collect {
                     callBack.addItem(position, it)
@@ -149,5 +158,6 @@ class TabViewModel @Inject constructor(
     sealed class Event {
         class ClickItemSubCategory(val listItemSubCategory: ListItemSubCategory) : Event()
         class ClickItemSubContent(val listItemSubContent: ListItemSubContent) : Event()
+        class Error(val message: String?) : Event()
     }
 }
