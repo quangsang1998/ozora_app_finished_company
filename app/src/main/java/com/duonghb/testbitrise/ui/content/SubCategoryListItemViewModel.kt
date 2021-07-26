@@ -157,7 +157,12 @@ class SubCategoryListItem(
                             )
                         )
                     } else {
-                        SubContentListItem(SubContentListItemViewModel(it, viewModel.contentlistener))
+                        SubContentListItem(
+                            SubContentListItemViewModel(
+                                it,
+                                viewModel.contentlistener
+                            )
+                        )
                     }
                 }.let {
                     adapter.updateAsync(it)
