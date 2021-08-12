@@ -147,16 +147,18 @@ class TabViewModel @Inject constructor(
     }
 
     override fun onItemSubCategoryClick(listItemSubCategory: ListItemSubCategory?) {
+        _onEventSubCategory.value = Event.ClickItemSubCategory(listItemSubCategory)
     }
 
     override fun onItemSubContentClick(listItemSubContent: ListItemSubContent) {
+        _onEventSubContent.value = Event.ClickItemSubContent(listItemSubContent)
     }
 
     override fun onItemFirstSubContentClick(listItemSubContent: ListItemSubContent) {
     }
 
     sealed class Event {
-        class ClickItemSubCategory(val listItemSubCategory: ListItemSubCategory) : Event()
+        class ClickItemSubCategory(val listItemSubCategory: ListItemSubCategory?) : Event()
         class ClickItemSubContent(val listItemSubContent: ListItemSubContent) : Event()
         class Error(val message: String?) : Event()
     }

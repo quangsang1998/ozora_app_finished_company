@@ -47,8 +47,7 @@ class TabFragment : Fragment(R.layout.tab_fragment) {
                 this.showStateDialog(
                     title = R.string.error_notification,
                     message = event.message,
-                    positiveName = R.string.positive_dialog,
-                    negativeName = R.string.negative_dialog
+                    positiveName = R.string.positive_dialog
                 )
         }
     }
